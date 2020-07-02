@@ -3,11 +3,32 @@
     <body>
         <div>
             <input type="text", id="amount">
-            <p id='balance'></p>
+			<p id='balance'></p>
+			
             <button id='deposit'>Deposit</button>
             <button id='withdraw'>Withdraw</button>
+		</div>
+		<div>
+			<p>Transfer Ether</p>
+		</div>
+		<div>
+			<td width="400">Owner Address : </td><button id='owner'>Get Owner</button>
+		</div>
+		<div>
+			<td width="400">Coin  Balance : </td><button id='coinbalance'>Get Coin Balance</button>
+		</div>
+		<div>
+			<input type="text", placeholder="Enter New Owner Address",id="owneraddress">
+			<button id='transferowner'>Transer Owner</button>
+			
+		</div>
+		
+		<div>
+			<input type="text", placeholder="Enter New Owner Address", id="coinValue">
+			<button id='mint'>MInt</button>
+			
         </div>
-
+		
 
         <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
@@ -21,11 +42,126 @@
 		"constant": false,
 		"inputs": [
 			{
-				"name": "amt",
-				"type": "int256"
+				"name": "etherValue",
+				"type": "uint256"
 			}
 		],
-		"name": "deposit",
+		"name": "withdraw",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "kill",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwner",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getCoinBalance",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getBankBalance",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getOwner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"name": "coinValue",
+				"type": "uint256"
+			}
+		],
+		"name": "transferCoin",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "coinValue",
+				"type": "uint256"
+			}
+		],
+		"name": "mint",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"name": "etherValue",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -36,10 +172,24 @@
 		"inputs": [
 			{
 				"name": "amt",
-				"type": "int256"
+				"type": "uint256"
 			}
 		],
-		"name": "withdraw",
+		"name": "deposit",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "coinValue",
+				"type": "uint256"
+			}
+		],
+		"name": "buy",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -47,35 +197,188 @@
 	},
 	{
 		"inputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
+		"payable": true,
+		"stateMutability": "payable",
 		"type": "constructor"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "getBalance",
-		"outputs": [
+		"anonymous": false,
+		"inputs": [
 			{
-				"name": "",
-				"type": "int256"
+				"indexed": true,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "value",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "timestamp",
+				"type": "uint256"
 			}
 		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
+		"name": "DepositEvent",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "value",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "WithdrawEvent",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "value",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "TransferEvent",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "value",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "MintEvent",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "value",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "BuyCoinEvent",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "oldOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "newOwner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "TransferOwnerEvent",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "value",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "TransferCoinEvent",
+		"type": "event"
 	}
 ]
-                var address = "0x25D8339f5F4F9A33B7F359Ab54D6c8087b7a34ad";
+                var address = "0x8b64265f85369d4c6072554963b724370cc1f155";
                 web3 = new Web3(web3.currentProvider);
                 contract = new web3.eth.Contract(abi, address);
 
-
+						
                 //Get Balance
-                contract.methods.getBalance().call().then(function(bal)
+                contract.methods.getBankBalance().call().then(function(balance)
                 {
-                    $('#balance').html(bal);
-                })
+                    $('#balance').html(balance);
+				})
+				
+				
+
 
                 //Deposit
                 $('#deposit').click(function()
@@ -115,7 +418,96 @@
                         console.log(tx);
                     })
 
-                })
+				})
+				
+				//Get Owner Account
+				$('#owner').click(function()
+                {
+						
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.getOwner().call(
+							{
+								from: accounts[0]
+							}).then(function(owner)
+								{
+									$('#owner').html(owner);
+								})
+					})
+				})
+
+				//Get Coin Balance
+				$('#coinbalance').click(function()
+                {
+						
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.getCoinBalance().call(
+							{
+								from: accounts[0]
+							}).then(function(coinbalance)
+								{
+									$('#coinbalance').html(coinbalance);
+								})
+					})
+				})
+				
+				//Transfer Owner
+				
+				$('#transferowner').click(function()
+                {	
+
+					var address
+					address = document.getElementById("owneraddress").value
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.transferOwner(address).send(
+							{
+								from: accounts[0]
+							})
+							.then(function(tx)
+                    {
+                        console.log(tx);
+                    }).catch(function(tx)
+                    {
+                        console.log(tx);
+                    })
+					})
+				})
+
+				//Mint
+				//Transfer Owner
+				
+				$('#mint').click(function()
+                {	
+
+					var coinValue
+					coinValue = document.getElementById("coinValue").value
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.mint(coinValue).send(
+							{
+								from: accounts[0]
+							})
+							.then(function(tx)
+                    {
+                        console.log(tx);
+                    }).catch(function(tx)
+                    {
+                        console.log(tx);
+                    })
+					})
+				})
+
+
 
             })
         </script>
