@@ -2,32 +2,69 @@
 <html>
     <body>
         <div>
-            <input type="text", id="amount">
-			<p id='balance'></p>
+			<p id="smartcontractaddress"></p>
+
+			<table>
+				<tr>
+					<tr><p id="selectedaddress"></p></tr>
+					<tr><p id="checkedbalances"></p></tr>
+					<tr><p id="output"></p></tr>
+					<tr><p id="owneraddress"></p></tr>
+					<tr><button  style="width: 103px; background: yellowgreen;", id="checkedbalance">Check Balance</button></tr>
+					
+					<tr>
+						<button style="width: 103px; background: skyblue;", id='coinbalance'>Check Coin Balance</button>
+					</tr>
+					<tr>
+						<button style="width: 103px; background: darkgoldenrod;", id='owner'>Check Owner Address</button>
+					</tr>
+				</tr>
+			</table>
+		</div>
+		<div>
+		
+			<table>
+				<tr>
+					<input  style="width: 245px;", placeholder="Enter Deposit and Withdraw Amount", type="text", id="amount">
+				</tr>
+				<td>
+					<button style="width: 120px;", id='deposit'>Deposit</button>
+				</td>
+				<td>
+					<button style="width: 120px;", id='withdraw'>Withdraw</button>
+				</td>
+				
+			</table>
 			
-            <button id='deposit'>Deposit</button>
-            <button id='withdraw'>Withdraw</button>
 		</div>
+		<br>
+
 		<div>
-			<p>Transfer Ether</p>
+			<table>
+				<tr>
+					<input style="width: 245px;", type="text", placeholder="Enter New Owner Address", id="owneraddress">
+					<button style="width: 109px;", id='transferowner'>Transer Owner</button>
+				</tr>				
+				
+			</table>			
 		</div>
+		
+	    <br>
+		
 		<div>
-			<td width="400">Owner Address : </td><button id='owner'>Get Owner</button>
-		</div>
-		<div>
-			<td width="400">Coin  Balance : </td><button id='coinbalance'>Get Coin Balance</button>
-		</div>
-		<div>
-			<input type="text", placeholder="Enter New Owner Address",id="owneraddress">
-			<button id='transferowner'>Transer Owner</button>
+			<input style="width: 245px;", type="text", placeholder="Enter Coin Amount", id="coinValue">
+			<button style="width: 103px;", id='mint'>Mint</button>
 			
 		</div>
 		
+		<br>
 		<div>
-			<input type="text", placeholder="Enter New Owner Address", id="coinValue">
-			<button id='mint'>MInt</button>
+			<input style="width: 120px;", type="text", placeholder="Receipt Address", id="to">
+			<input style="width: 120px;", type="text", placeholder="Enter Coin Amount", id="coinValue">
+			<button style="width: 103px;", id='transfercoin'>Transfer Coin</button>
 			
-        </div>
+		</div>
+		
 		
 
         <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js"></script>
@@ -366,17 +403,51 @@
 		"type": "event"
 	}
 ]
-                var address = "0x8b64265f85369d4c6072554963b724370cc1f155";
+				var address = "0x8b64265f85369d4c6072554963b724370cc1f155";
+				
                 web3 = new Web3(web3.currentProvider);
-                contract = new web3.eth.Contract(abi, address);
-
-						
-                //Get Balance
-                contract.methods.getBankBalance().call().then(function(balance)
-                {
-                    $('#balance').html(balance);
+				contract = new web3.eth.Contract(abi, address);
+				
+				//Selected wallet address
+				
+				var account = web3.currentProvider.selectedAddress;
+				
+				var accountInterval = setInterval(function()
+				{
+					account = web3.currentProvider.selectedAddress;
+					document.getElementById("selectedaddress").innerHTML = "Current Account:" + account;
 				})
 				
+				
+                //Get Balance
+				contract.methods.getBankBalance().call().then(function(balance)
+				
+                {
+					//$('#balance').html(balance);
+					document.getElementById("smartcontractaddress").innerHTML = "Smart Contract Address:"  + address ;
+					
+					document.getElementById("balance").innerHTML = "Balance:"  + balance + "Ether" ;
+				})
+				
+			  //Check Ether Balance
+			  //Get Coin Balance
+				$('#checkedbalance').click(function()
+                {
+						
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.getBankBalance().call(
+							{
+								from: accounts[0]
+							}).then(function(checkedbalance)
+								{
+									//$('#coinbalance').html(coinbalance);
+									document.getElementById("checkedbalances").innerHTML = "Current Account Balance:" + checkedbalance + "Eth";
+								})
+					})
+				})
 				
 
 
@@ -433,7 +504,8 @@
 								from: accounts[0]
 							}).then(function(owner)
 								{
-									$('#owner').html(owner);
+									//$('#owner').html(owner);
+									document.getElementById("owneraddress").innerHTML = "Owner Address:"  + owner ;
 								})
 					})
 				})
@@ -451,7 +523,8 @@
 								from: accounts[0]
 							}).then(function(coinbalance)
 								{
-									$('#coinbalance').html(coinbalance);
+									//$('#coinbalance').html(coinbalance);
+									document.getElementById("output").innerHTML = "Current Account Coin Balance:"+coinbalance + "-COIN";
 								})
 					})
 				})
@@ -470,20 +543,17 @@
 						return contract.methods.transferOwner(address).send(
 							{
 								from: accounts[0]
-							})
-							.then(function(tx)
-                    {
-                        console.log(tx);
-                    }).catch(function(tx)
-                    {
-                        console.log(tx);
-                    })
+							}).then(function(tx)
+									{
+										console.log(tx);
+									}).catch(function(tx)
+									{
+										console.log(tx);
+									})
 					})
 				})
 
 				//Mint
-				//Transfer Owner
-				
 				$('#mint').click(function()
                 {	
 
@@ -494,6 +564,33 @@
 
 						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
 						return contract.methods.mint(coinValue).send(
+							{
+								from: accounts[0]
+							}).then(function(tx)
+								{
+									console.log(tx);
+								}).catch(function(tx)
+								{
+									console.log(tx);
+								})
+					})
+				})
+
+				//Transfer Coin
+			
+				$('#transfercoin').click(function()
+                {	
+
+					var coinValue
+					coinValue = document.getElementById("coinValue").value
+
+					var to
+					to = document.getElementById("to").value
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.transferCoin(to, coinValue).send(
 							{
 								from: accounts[0]
 							})
