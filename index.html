@@ -2,70 +2,46 @@
 <html>
     <body>
         <div>
-			<p id="smartcontractaddress"></p>
+            <input type="text", id="owneraddress">
+           <button id='ownerbalance'>Owner Balance</button>
+        </div>
+        <div>
+            <button id='name'>Token Name:</button>
+        </div>
+        <div>
+            <button id='symbol'>Token Symbol:</button>
+        </div>
+        <div>
+            <button id='decimals'>Token Decimals:</button>
+        </div>
+        <div>
+            <button id='totalSupply'>totalSupply:</button>
+        </div>
+        <div>
+            <button id='owner'>Owner Address:</button>
+        </div>
+        <div>
+            <input type="text", placeholder="Owner Address", id="owner">
+            <input type="text", placeholder="Spender Address", id="spender">
+           <button id='allowance'>Allowance</button>
+        </div>
+        <div>
+            <input type="text", placeholder="New Owner Address", id="newowner">
+           
+           <button id='transferOwnership'>Transfer Owner Ship</button>
+        </div>
+        <div>
+            <input type="text", placeholder="Awarder Address", id="awarderaddress">
+           
+           <button id='addAwarder'>Add Awarder</button>
+        </div>
+        <div>
+            <input type="text", placeholder="Awarder Address", id="awarderaddress">
+           
+           <button id='isAwarder'>Check Awarder</button>
+           <p id='awarders'></p>
+        </div>
 
-			<table>
-				<tr>
-					<tr><p id="selectedaddress"></p></tr>
-					<tr><p id="checkedbalances"></p></tr>
-					<tr><p id="output"></p></tr>
-					<tr><p id="owneraddress"></p></tr>
-					<tr><button  style="width: 103px; background: yellowgreen;", id="checkedbalance">Check Balance</button></tr>
-					
-					<tr>
-						<button style="width: 103px; background: skyblue;", id='coinbalance'>Check Coin Balance</button>
-					</tr>
-					<tr>
-						<button style="width: 103px; background: darkgoldenrod;", id='owner'>Check Owner Address</button>
-					</tr>
-				</tr>
-			</table>
-		</div>
-		<div>
-		
-			<table>
-				<tr>
-					<input  style="width: 245px;", placeholder="Enter Deposit and Withdraw Amount", type="text", id="amount">
-				</tr>
-				<td>
-					<button style="width: 120px;", id='deposit'>Deposit</button>
-				</td>
-				<td>
-					<button style="width: 120px;", id='withdraw'>Withdraw</button>
-				</td>
-				
-			</table>
-			
-		</div>
-		<br>
-
-		<div>
-			<table>
-				<tr>
-					<input style="width: 245px;", type="text", placeholder="Enter New Owner Address", id="owneraddress">
-					<button style="width: 109px;", id='transferowner'>Transer Owner</button>
-				</tr>				
-				
-			</table>			
-		</div>
-		
-	    <br>
-		
-		<div>
-			<input style="width: 245px;", type="text", placeholder="Enter Coin Amount", id="coinValue">
-			<button style="width: 103px;", id='mint'>Mint</button>
-			
-		</div>
-		
-		<br>
-		<div>
-			<input style="width: 120px;", type="text", placeholder="Receipt Address", id="to">
-			<input style="width: 120px;", type="text", placeholder="Enter Coin Amount", id="coinValue">
-			<button style="width: 103px;", id='transfercoin'>Transfer Coin</button>
-			
-		</div>
-		
-		
 
         <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
@@ -76,74 +52,14 @@
 
                 var abi = [
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [
 			{
-				"name": "etherValue",
+				"name": "index",
 				"type": "uint256"
 			}
 		],
-		"name": "withdraw",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "kill",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwner",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getCoinBalance",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getBankBalance",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getOwner",
+		"name": "getAward",
 		"outputs": [
 			{
 				"name": "",
@@ -155,19 +71,52 @@
 		"type": "function"
 	},
 	{
+		"constant": true,
+		"inputs": [],
+		"name": "mintingFinished",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "name",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"constant": false,
 		"inputs": [
 			{
-				"name": "to",
+				"name": "_spender",
 				"type": "address"
 			},
 			{
-				"name": "coinValue",
+				"name": "_value",
 				"type": "uint256"
 			}
 		],
-		"name": "transferCoin",
-		"outputs": [],
+		"name": "approve",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -176,11 +125,196 @@
 		"constant": false,
 		"inputs": [
 			{
-				"name": "coinValue",
+				"name": "_addr",
+				"type": "address"
+			}
+		],
+		"name": "addAwarder",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "totalSupply",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_from",
+				"type": "address"
+			},
+			{
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "decimals",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"name": "_amount",
 				"type": "uint256"
 			}
 		],
 		"name": "mint",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_spender",
+				"type": "address"
+			},
+			{
+				"name": "_subtractedValue",
+				"type": "uint256"
+			}
+		],
+		"name": "decreaseApproval",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_owner",
+				"type": "address"
+			}
+		],
+		"name": "balanceOf",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "finishMinting",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "symbol",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_addr",
+				"type": "address"
+			}
+		],
+		"name": "deleteAwarder",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -190,15 +324,65 @@
 		"constant": false,
 		"inputs": [
 			{
-				"name": "to",
+				"name": "_to",
 				"type": "address"
 			},
 			{
-				"name": "etherValue",
+				"name": "_value",
 				"type": "uint256"
 			}
 		],
 		"name": "transfer",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"name": "addAward",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "user",
+				"type": "address"
+			},
+			{
+				"name": "awardId",
+				"type": "uint256"
+			},
+			{
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"name": "date",
+				"type": "uint256"
+			}
+		],
+		"name": "giveAward",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -208,25 +392,98 @@
 		"constant": false,
 		"inputs": [
 			{
-				"name": "amt",
+				"name": "_spender",
+				"type": "address"
+			},
+			{
+				"name": "_addedValue",
 				"type": "uint256"
 			}
 		],
-		"name": "deposit",
-		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
+		"name": "increaseApproval",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_owner",
+				"type": "address"
+			},
+			{
+				"name": "_spender",
+				"type": "address"
+			}
+		],
+		"name": "allowance",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"constant": false,
 		"inputs": [
 			{
-				"name": "coinValue",
+				"name": "user",
+				"type": "address"
+			},
+			{
+				"name": "awardId",
+				"type": "uint256"
+			},
+			{
+				"name": "date",
 				"type": "uint256"
 			}
 		],
-		"name": "buy",
+		"name": "revokeAward",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_addr",
+				"type": "address"
+			}
+		],
+		"name": "isAwarder",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -234,8 +491,8 @@
 	},
 	{
 		"inputs": [],
-		"payable": true,
-		"stateMutability": "payable",
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "constructor"
 	},
 	{
@@ -243,21 +500,31 @@
 		"inputs": [
 			{
 				"indexed": true,
-				"name": "from",
+				"name": "_from",
 				"type": "address"
 			},
 			{
-				"indexed": false,
-				"name": "value",
+				"indexed": true,
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "_type",
 				"type": "uint256"
 			},
 			{
 				"indexed": false,
-				"name": "timestamp",
+				"name": "_amount",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_date",
 				"type": "uint256"
 			}
 		],
-		"name": "DepositEvent",
+		"name": "AwardGiven",
 		"type": "event"
 	},
 	{
@@ -265,31 +532,72 @@
 		"inputs": [
 			{
 				"indexed": true,
-				"name": "from",
+				"name": "_from",
 				"type": "address"
 			},
 			{
-				"indexed": false,
-				"name": "value",
+				"indexed": true,
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "_type",
 				"type": "uint256"
 			},
 			{
 				"indexed": false,
-				"name": "timestamp",
+				"name": "_date",
 				"type": "uint256"
 			}
 		],
-		"name": "WithdrawEvent",
+		"name": "AwardRevoked",
 		"type": "event"
 	},
 	{
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": true,
-				"name": "from",
+				"indexed": false,
+				"name": "_from",
 				"type": "address"
 			},
+			{
+				"indexed": false,
+				"name": "_type",
+				"type": "uint256"
+			}
+		],
+		"name": "AwardAdded",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_who",
+				"type": "address"
+			}
+		],
+		"name": "AwarderAdded",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_who",
+				"type": "address"
+			}
+		],
+		"name": "AwarderRemoved",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
 			{
 				"indexed": true,
 				"name": "to",
@@ -297,16 +605,17 @@
 			},
 			{
 				"indexed": false,
-				"name": "value",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "timestamp",
+				"name": "amount",
 				"type": "uint256"
 			}
 		],
-		"name": "TransferEvent",
+		"name": "Mint",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [],
+		"name": "MintFinished",
 		"type": "event"
 	},
 	{
@@ -314,21 +623,11 @@
 		"inputs": [
 			{
 				"indexed": true,
-				"name": "from",
+				"name": "previousOwner",
 				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "value",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "timestamp",
-				"type": "uint256"
 			}
 		],
-		"name": "MintEvent",
+		"name": "OwnershipRenounced",
 		"type": "event"
 	},
 	{
@@ -336,43 +635,38 @@
 		"inputs": [
 			{
 				"indexed": true,
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "value",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "timestamp",
-				"type": "uint256"
-			}
-		],
-		"name": "BuyCoinEvent",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "oldOwner",
+				"name": "previousOwner",
 				"type": "address"
 			},
 			{
 				"indexed": true,
 				"name": "newOwner",
 				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "spender",
+				"type": "address"
 			},
 			{
 				"indexed": false,
-				"name": "timestamp",
+				"name": "value",
 				"type": "uint256"
 			}
 		],
-		"name": "TransferOwnerEvent",
+		"name": "Approval",
 		"type": "event"
 	},
 	{
@@ -392,106 +686,61 @@
 				"indexed": false,
 				"name": "value",
 				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "timestamp",
-				"type": "uint256"
 			}
 		],
-		"name": "TransferCoinEvent",
+		"name": "Transfer",
 		"type": "event"
 	}
 ]
-				var address = "0x8b64265f85369d4c6072554963b724370cc1f155";
-				
+                var address = "0x86Ff975CeFA58a0f2679Ee84073A8d07580F92F4";
                 web3 = new Web3(web3.currentProvider);
-				contract = new web3.eth.Contract(abi, address);
-				
-				//Selected wallet address
-				
-				var account = web3.currentProvider.selectedAddress;
-				
-				var accountInterval = setInterval(function()
-				{
-					account = web3.currentProvider.selectedAddress;
-					document.getElementById("selectedaddress").innerHTML = "Current Account:" + account;
-				})
-				
-				
-                //Get Balance
-				contract.methods.getBankBalance().call().then(function(balance)
-				
+                contract = new web3.eth.Contract(abi, address);
+
+
+                //Get Token Name
+                contract.methods.name().call().then(function(name)
                 {
-					//$('#balance').html(balance);
-					document.getElementById("smartcontractaddress").innerHTML = "Smart Contract Address:"  + address ;
-					
-					document.getElementById("balance").innerHTML = "Balance:"  + balance + "Ether" ;
-				})
-				
-			  //Check Ether Balance
-			  //Get Coin Balance
-				$('#checkedbalance').click(function()
+                    //$('#name').html(name);
+                    document.getElementById("name").innerHTML = "Token Name:"  + name ;
+                })
+                //Get Token Symbol
+                contract.methods.symbol().call().then(function(symbol)
+                {
+                    //$('#name').html(name);
+                    document.getElementById("symbol").innerHTML = "Token Symbol:"  + symbol ;
+                })
+                //Get Token Decimal
+                contract.methods.decimals().call().then(function(decimals)
+                {
+                    //$('#name').html(name);
+                    document.getElementById("decimals").innerHTML = "Token Decimal:"  + decimals ;
+                })
+                //Get Owner Address
+                contract.methods.owner().call().then(function(owner)
+                {
+                    //$('#name').html(name);
+                    document.getElementById("owner").innerHTML = "Owner Address:"  + owner ;
+                })
+
+                //Get Total Supply
+				$('#totalSupply').click(function()
                 {
 						
 						web3.eth.getAccounts().then(function (accounts) 
 					{
 
 						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
-						return contract.methods.getBankBalance().call(
+						return contract.methods.totalSupply().call(
 							{
 								from: accounts[0]
-							}).then(function(checkedbalance)
+							}).then(function(totalSupply)
 								{
-									//$('#coinbalance').html(coinbalance);
-									document.getElementById("checkedbalances").innerHTML = "Current Account Balance:" + checkedbalance + "Eth";
+									//$('#owner').html(owner);
+									document.getElementById("totalSupply").innerHTML = "Total Supply:"  + totalSupply ;
 								})
 					})
 				})
-				
-
-
-                //Deposit
-                $('#deposit').click(function()
-                {
-                    var amt = 0;
-                    var amt = parseInt($('#amount').val());
-
-                    web3.eth.getAccounts().then(function(accounts)
-                    {
-                        var acc = accounts[0];
-                        return contract.methods.deposit(amt).send({from: acc});
-                    }).then(function(tx)
-                    {
-                        console.log(tx);
-                    }).catch(function(tx)
-                    {
-                        console.log(tx);
-                    })
-
-                })
-
-                //Withdraw
-                $('#withdraw').click(function()
-                {
-                    var amt = 0;
-                    var amt = parseInt($('#amount').val());
-
-                    web3.eth.getAccounts().then(function(accounts)
-                    {
-                        var acc = accounts[0];
-                        return contract.methods.withdraw(amt).send({from: acc});
-                    }).then(function(tx)
-                    {
-                        console.log(tx);
-                    }).catch(function(tx)
-                    {
-                        console.log(tx);
-                    })
-
-				})
-				
-				//Get Owner Account
+                //Get Owner Account
 				$('#owner').click(function()
                 {
 						
@@ -509,38 +758,64 @@
 								})
 					})
 				})
-
-				//Get Coin Balance
-				$('#coinbalance').click(function()
+                //Get Owner Balance
+				$('#ownerbalance').click(function()
                 {
-						
-						web3.eth.getAccounts().then(function (accounts) 
-					{
-
-						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
-						return contract.methods.getCoinBalance().call(
-							{
-								from: accounts[0]
-							}).then(function(coinbalance)
-								{
-									//$('#coinbalance').html(coinbalance);
-									document.getElementById("output").innerHTML = "Current Account Coin Balance:"+coinbalance + "-COIN";
-								})
-					})
-				})
-				
-				//Transfer Owner
-				
-				$('#transferowner').click(function()
-                {	
-
-					var address
+                    var address
 					address = document.getElementById("owneraddress").value
 						web3.eth.getAccounts().then(function (accounts) 
 					{
 
 						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
-						return contract.methods.transferOwner(address).send(
+						return contract.methods.balanceOf(address).call(
+							{
+								from: accounts[0]
+							}).then(function(ownerbalance)
+								{
+									//$('#coinbalance').html(coinbalance);
+									document.getElementById("ownerbalance").innerHTML = "Owner Account Balance:" + ownerbalance + "Eth";
+								})
+					})
+				})
+                //Get Allowance
+				$('#allowance').click(function()
+                {
+                    var owneraddress
+					owneraddress = document.getElementById("owner").value
+                    var spenderaddress
+					spenderaddress = document.getElementById("spender").value
+                    
+
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.allowance(owneraddress, spenderaddress).call(
+							{
+								from: accounts[0]
+							}).then(function(tx)
+                                {
+                                    console.log(tx);
+                                }).catch(function(tx)
+                                {
+                                    console.log(tx);
+                                })
+                                })
+				    })
+
+
+                //Transfer Owner
+				
+				$('#transferOwnership').click(function()
+                {	
+
+					var address
+					address = document.getElementById("newowner").value
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.transferOwnership(address).send(
 							{
 								from: accounts[0]
 							}).then(function(tx)
@@ -552,59 +827,53 @@
 									})
 					})
 				})
-
-				//Mint
-				$('#mint').click(function()
+                //Add Awarder
+            	
+				$('#addAwarder').click(function()
                 {	
 
-					var coinValue
-					coinValue = document.getElementById("coinValue").value
+					var address
+					address = document.getElementById("awarderaddress").value
 						web3.eth.getAccounts().then(function (accounts) 
 					{
 
 						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
-						return contract.methods.mint(coinValue).send(
+						return contract.methods.addAwarder(address).send(
 							{
 								from: accounts[0]
 							}).then(function(tx)
-								{
-									console.log(tx);
-								}).catch(function(tx)
-								{
-									console.log(tx);
-								})
+									{
+										console.log(tx);
+									}).catch(function(tx)
+									{
+										console.log(tx);
+									})
 					})
 				})
+                // Check Awarder 
 
-				//Transfer Coin
-			
-				$('#transfercoin').click(function()
+                $('#isAwarder').click(function()
                 {	
 
-					var coinValue
-					coinValue = document.getElementById("coinValue").value
-
-					var to
-					to = document.getElementById("to").value
+					var address
+					address = document.getElementById("awarderaddress").value
 						web3.eth.getAccounts().then(function (accounts) 
 					{
 
 						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
-						return contract.methods.transferCoin(to, coinValue).send(
+						return contract.methods.isAwarder(address).send(
 							{
 								from: accounts[0]
-							})
-							.then(function(tx)
-                    {
-                        console.log(tx);
-                    }).catch(function(tx)
-                    {
-                        console.log(tx);
-                    })
+							}).then(function(tx)
+									{
+										console.log(tx);
+									}).catch(function(tx)
+									{
+										console.log(tx);
+									})
 					})
 				})
-
-
+              
 
             })
         </script>

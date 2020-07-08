@@ -1,0 +1,637 @@
+
+<html>
+    <body>
+        <div>
+			<p id="smartcontractaddress"></p>
+
+			<table>
+				<tr>
+					<tr><p id="selectedaddress"></p></tr>
+					<tr><p id="checkedbalances"></p></tr>
+					<tr><p id="output"></p></tr>
+					<tr><p id="owneraddress"></p></tr>
+					<tr><button  style="width: 103px; background: yellowgreen;", id="checkedbalance">Check Balance</button></tr>
+					
+					<tr>
+						<button style="width: 103px; background: skyblue;", id='coinbalance'>Check Coin Balance</button>
+					</tr>
+					<tr>
+						<button style="width: 103px; background: darkgoldenrod;", id='owner'>Check Owner Address</button>
+					</tr>
+				</tr>
+			</table>
+		</div>
+		<div>
+		
+			<table>
+				<tr>
+					<input  style="width: 245px;", placeholder="Enter Deposit and Withdraw Amount", type="text", id="amount">
+				</tr>
+				<td>
+					<button style="width: 120px;", id='deposit'>Deposit</button>
+				</td>
+				<td>
+					<button style="width: 120px;", id='withdraw'>Withdraw</button>
+				</td>
+				
+			</table>
+			
+		</div>
+		<br>
+
+		<div>
+			<table>
+				<tr>
+					<input style="width: 245px;", type="text", placeholder="Enter New Owner Address", id="owneraddress">
+					<button style="width: 109px;", id='transferowner'>Transer Owner</button>
+				</tr>				
+				
+			</table>			
+		</div>
+		
+	    <br>
+		
+		<div>
+			<input style="width: 245px;", type="text", placeholder="Enter Coin Amount", id="coinValue">
+			<button style="width: 103px;", id='mint'>Mint</button>
+			
+		</div>
+		
+		<br>
+		<div>
+			<input style="width: 120px;", type="text", placeholder="Receipt Address", id="to">
+			<input style="width: 120px;", type="text", placeholder="Enter Coin Amount", id="coinValue">
+			<button style="width: 103px;", id='transfercoin'>Transfer Coin</button>
+			
+		</div>
+		<div>
+			
+			<button style="width: 103px;", id='kill'>Kill Owner</button>
+			
+		</div>
+		
+		
+
+        <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+
+        <script>
+            var contract;
+            $(document).ready(function(){
+
+                var abi = [
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "etherValue",
+				"type": "uint256"
+			}
+		],
+		"name": "withdraw",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "kill",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwner",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getCoinBalance",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getBankBalance",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getOwner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"name": "coinValue",
+				"type": "uint256"
+			}
+		],
+		"name": "transferCoin",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "coinValue",
+				"type": "uint256"
+			}
+		],
+		"name": "mint",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"name": "etherValue",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "amt",
+				"type": "uint256"
+			}
+		],
+		"name": "deposit",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "coinValue",
+				"type": "uint256"
+			}
+		],
+		"name": "buy",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "value",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "DepositEvent",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "value",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "WithdrawEvent",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "value",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "TransferEvent",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "value",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "MintEvent",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "value",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "BuyCoinEvent",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "oldOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "newOwner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "TransferOwnerEvent",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "value",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "TransferCoinEvent",
+		"type": "event"
+	}
+]
+				var address = "0x38e933FF0FA9b1a55b7Aa134C961Bc25F97f9A7b";
+				
+                web3 = new Web3(web3.currentProvider);
+				contract = new web3.eth.Contract(abi, address);
+				
+				//Selected wallet address
+				
+				var account = web3.currentProvider.selectedAddress;
+				
+				var accountInterval = setInterval(function()
+				{
+					account = web3.currentProvider.selectedAddress;
+					document.getElementById("selectedaddress").innerHTML = "Current Account:" + account;
+				})
+				
+				
+                //Get Balance
+				contract.methods.getBankBalance().call().then(function(balance)
+				
+                {
+					//$('#balance').html(balance);
+					document.getElementById("smartcontractaddress").innerHTML = "Smart Contract Address:"  + address ;
+					
+					document.getElementById("balance").innerHTML = "Balance:"  + balance + "Ether" ;
+				})
+				
+			  //Check Ether Balance
+			  //Get Coin Balance
+				$('#checkedbalance').click(function()
+                {
+						
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.getBankBalance().call(
+							{
+								from: accounts[0]
+							}).then(function(checkedbalance)
+								{
+									//$('#coinbalance').html(coinbalance);
+									document.getElementById("checkedbalances").innerHTML = "Current Account Balance:" + checkedbalance + "Eth";
+								})
+					})
+				})
+				
+
+
+                //Deposit
+                $('#deposit').click(function()
+                {
+                    var amt = 0;
+                    var amt = parseInt($('#amount').val());
+
+                    web3.eth.getAccounts().then(function(accounts)
+                    {
+                        var acc = accounts[0];
+                        return contract.methods.deposit(amt).send({from: acc});
+                    }).then(function(tx)
+                    {
+                        console.log(tx);
+                    }).catch(function(tx)
+                    {
+                        console.log(tx);
+                    })
+
+                })
+
+                //Withdraw
+                $('#withdraw').click(function()
+                {
+                    var amt = 0;
+                    var amt = parseInt($('#amount').val());
+
+                    web3.eth.getAccounts().then(function(accounts)
+                    {
+                        var acc = accounts[0];
+                        return contract.methods.withdraw(amt).send({from: acc});
+                    }).then(function(tx)
+                    {
+                        console.log(tx);
+                    }).catch(function(tx)
+                    {
+                        console.log(tx);
+                    })
+
+				})
+				
+				//Get Owner Account
+				$('#owner').click(function()
+                {
+						
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.getOwner().call(
+							{
+								from: accounts[0]
+							}).then(function(owner)
+								{
+									//$('#owner').html(owner);
+									document.getElementById("owneraddress").innerHTML = "Owner Address:"  + owner ;
+								})
+					})
+				})
+
+				//Get Coin Balance
+				$('#coinbalance').click(function()
+                {
+						
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.getCoinBalance().call(
+							{
+								from: accounts[0]
+							}).then(function(coinbalance)
+								{
+									//$('#coinbalance').html(coinbalance);
+									document.getElementById("output").innerHTML = "Current Account Coin Balance:"+coinbalance + "-COIN";
+								})
+					})
+				})
+				
+				//Transfer Owner
+				
+				$('#transferowner').click(function()
+                {	
+
+					var address
+					address = document.getElementById("owneraddress").value
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.transferOwner(address).send(
+							{
+								from: accounts[0]
+							}).then(function(tx)
+									{
+										console.log(tx);
+									}).catch(function(tx)
+									{
+										console.log(tx);
+									})
+					})
+				})
+
+				//Mint
+				$('#mint').click(function()
+                {	
+
+					var coinValue
+					coinValue = document.getElementById("coinValue").value
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.mint(coinValue).send(
+							{
+								from: accounts[0]
+							}).then(function(tx)
+								{
+									console.log(tx);
+								}).catch(function(tx)
+								{
+									console.log(tx);
+								})
+					})
+				})
+
+				//Transfer Coin
+			
+				$('#transfercoin').click(function()
+                {	
+
+					var coinValue
+					coinValue = document.getElementById("coinValue").value
+
+					var to
+					to = document.getElementById("to").value
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.transferCoin(to, coinValue).send(
+							{
+								from: accounts[0]
+							})
+							.then(function(tx)
+                    {
+                        console.log(tx);
+                    }).catch(function(tx)
+                    {
+                        console.log(tx);
+                    })
+					})
+				})
+				// Kill Owner
+				$('#kill').click(function()
+                {
+						
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.kill().call(
+							{
+								from: accounts[0]
+							}).then(function(tx)
+								{
+									console.log(tx);
+								}).catch(function(tx)
+								{
+									console.log(tx);
+								})
+					})
+				})
+
+
+
+            })
+        </script>
+    </body>
+</html>
