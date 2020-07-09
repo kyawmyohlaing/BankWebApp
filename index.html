@@ -1,45 +1,138 @@
 
-<html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width", initial-scale=1>
+        <link rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script>
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"
+        </script>
+        <script>
+            src="https://maxodn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        </script>
+    </head>
     <body>
-        <div>
-            <input type="text", id="owneraddress">
-           <button id='ownerbalance'>Owner Balance</button>
-        </div>
-        <div>
-            <button id='name'>Token Name:</button>
-        </div>
-        <div>
-            <button id='symbol'>Token Symbol:</button>
-        </div>
-        <div>
-            <button id='decimals'>Token Decimals:</button>
-        </div>
-        <div>
-            <button id='totalSupply'>totalSupply:</button>
-        </div>
-        <div>
-            <button id='owner'>Owner Address:</button>
-        </div>
-        <div>
-            <input type="text", placeholder="Owner Address", id="owner">
-            <input type="text", placeholder="Spender Address", id="spender">
-           <button id='allowance'>Allowance</button>
-        </div>
-        <div>
-            <input type="text", placeholder="New Owner Address", id="newowner">
-           
-           <button id='transferOwnership'>Transfer Owner Ship</button>
-        </div>
-        <div>
-            <input type="text", placeholder="Awarder Address", id="awarderaddress">
-           
-           <button id='addAwarder'>Add Awarder</button>
-        </div>
-        <div>
-            <input type="text", placeholder="Awarder Address", id="awarderaddress">
-           
-           <button id='isAwarder'>Check Awarder</button>
-           <p id='awarders'></p>
+        
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6">
+                    <button  id='name'>Token Name:</button>
+                    <button id='symbol'>Token Symbol:</button>
+                    <button id='decimals'>Token Decimals:</button>
+                    
+                </div>
+                <p></p>
+                <div class="col-lg-6">
+                    <button id='totalSupply'>totalSupply:</button>
+                    <button id='owner'>Owner Address:</button>
+                </div>
+                <p></p>
+               
+                <div class="col-lg-6">
+                    <input type="text", id="owneraddress">
+                <button id='ownerbalance'>Owner Balance</button>
+                </div>
+                <p></p>
+                <div class="col-lg-6">
+                    <input type="text", placeholder="Awarder Address", id="awarderaddress">
+                    <button id='addAwarder'>Add Awarder</button>
+                </div>
+                <p></p>
+                <div class="col-lg-6">
+                    <input type="text", placeholder="Awarder Address", id="awarderaddress">
+                    <button style="background: red;", "id='isAwarder'>Check Awarder-In progress</button>
+                    
+                </div>
+                <p></p>
+                <div class="col-lg-6">
+                    <input type="text", placeholder="Award ID", id="awardid">
+                
+                    <button id='addAward'>Define Award</button>
+                
+                </div>
+                <p></p>
+                <div class="col-lg-6">
+                    <input type="text", placeholder="Award ID", id="awardid">
+                
+                    <button id='getaward'>Check Award ID Owner Address</button>
+                
+                </div>
+                <p></p>
+                <div class="col-lg-6">
+                    <input type="text", placeholder="Awarder Address", id="deleteAwarder">
+                
+                    <button id='deleteAwarder'>Delete Awarder</button>
+                
+                </div>
+                
+                <p></p>
+                <div class="col-lg-6">
+                    <input type="text", placeholder="New Owner Address", id="newowner">
+                
+                <button id='transferOwnership'>Transfer Owner Ship</button>
+                </div>
+                
+                <p></p>
+                <div class="col-lg-6">
+                    <input type="text", placeholder="Balance Address", id="balanceaddress">
+                    <button id='balanceof'>Balance</button>
+                </div>
+                <p></p>
+                <div class="col-lg-6">
+                    <input type="text", placeholder="New Owner Address", id="newowner">
+                
+                    <button style="background: red;", id='transferowner'>OwnerTransfer-In Progress</button>
+                </div>
+                <p></p>
+                <div class="col-lg-6">
+                    <input type="text", placeholder="Mint Address", id="to">
+                    <input type="text", placeholder="Mint Amount", id="amount">
+                
+                <button id='mint'>Mint </button>
+                </div>
+                <p></p>
+                <div class="col-lg-6">
+                    <input type="text", placeholder="Receipt Address", id="recipient">
+                    <input type="text", placeholder="Transfer Amount", id="amount">
+                    <button id='transfer'>Transfer</button>
+                </div>
+                <p></p>
+                <div class="col-lg-6">
+                    <input type="text", placeholder="Owner Address", id="owner">
+                    <input type="text", placeholder="Spender Address", id="spender">
+                    <button style="background: red;", id='allowance'>Allowance-In Progress</button>
+                </div>
+                <div class="col-lg-6">
+                    <input type="text", placeholder="Spender Address", id="spender">
+                    <input type="text", placeholder="Given Amount", id="amount">
+                    <button style="background: red;", id='approve'>Approve- In Progress</button>
+                </div>
+                <p></p>
+                <div class="col-lg-6">
+                    <input type="text", placeholder="Spender Address", id="spender">
+                    <input type="text", placeholder="Added Amount", id="addedamount">
+                    <button style="background: red;", id='increaseApproval'>Increased Approve- In Progress</button>
+                </div>
+                <p></p>
+                <div class="col-lg-6">
+                    <input type="text", placeholder="Spender Address", id="spender">
+                    <input type="text", placeholder="subtractedValue Amount", id="substractamount">
+                    <button style="background: red;", id='descreaseApproval'>Decreased Approve- In Progress</button>
+                </div>
+                <p></p>
+                <div class="col-lg-6">
+                    <input type="text", placeholder="Sender Address", id="from">
+                    <input type="text", placeholder="Receipt Address", id="to">
+                    <input type="text", placeholder="Transfer Amount", id="value">
+                    <button style="background: red;", id='transferFrom'>Transfer From-In Progress</button>
+                </div>
+                <p></p>
+                <div class="col-lg-6">
+                    <input type="text", placeholder="User Address", id="user">
+                    <input type="text", placeholder="Award ID", id="awardid">
+                    <input type="text", placeholder="Date", id="date">
+                    <button id='revokeAward'>Revoke Award</button>
+                </div>
+            </div>
         </div>
 
 
@@ -790,7 +883,7 @@
 					{
 
 						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
-						return contract.methods.allowance(owneraddress, spenderaddress).call(
+						return contract.methods.allowance(owneraddress, spenderaddress).send(
 							{
 								from: accounts[0]
 							}).then(function(tx)
@@ -850,6 +943,49 @@
 									})
 					})
 				})
+                //Add Award Id
+                $('#addAward').click(function()
+                {	
+
+					var awardid
+					awardid = document.getElementById("awardid").value
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.addAward(awardid).send(
+							{
+								from: accounts[0]
+							}).then(function(tx)
+									{
+										console(tx);
+									}).catch(function(tx)
+									{
+										console.log(tx);
+									})
+					})
+				})
+
+                 //Check Award Address for award ID
+				$('#getaward').click(function()
+                {
+                    var index
+					index = document.getElementById("awardid").value
+                    var awards
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.getAward(index).call(
+							{
+								from: accounts[0]
+							}).then(function(awards)
+								{
+									//$('#coinbalance').html(coinbalance);
+									document.getElementById("getaward").innerHTML = "Award ID Owner Address:" + awards ;
+								})
+					})
+				})
                 // Check Awarder 
 
                 $('#isAwarder').click(function()
@@ -857,13 +993,234 @@
 
 					var address
 					address = document.getElementById("awarderaddress").value
+                    var awarders
 						web3.eth.getAccounts().then(function (accounts) 
 					{
 
 						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
-						return contract.methods.isAwarder(address).send(
+						return contract.methods.isAwarder(address).call(
 							{
 								from: accounts[0]
+							}).then(function(awarders)
+								{
+									//$('#coinbalance').html(coinbalance);
+									document.getElementById("isAwarder").innerHTML = "Is Awarder?:" + awarders ;
+								})
+					})
+				})
+                //Mint
+                $('#mint').click(function()
+                {	
+
+					var address
+					address = document.getElementById("to").value
+                    var amount
+                    amount = document.getElementById("amount").value
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.mint(address, amount).send(
+							{
+								from: accounts[0]
+							}).then(function(tx)
+									{
+										console("tx", tx);
+									}).catch(function(tx)
+									{
+										console.log(tx);
+									})
+					})
+				})
+              // Balance 
+              $('#balanceof').click(function()
+                {	
+
+					var address
+					address = document.getElementById("balanceaddress").value
+                
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.balanceOf(address).call(
+							{
+								from: accounts[0]
+							}).then(function(balanceof)
+								{
+									//$('#coinbalance').html(coinbalance);
+									document.getElementById("balanceof").innerHTML = "Balance:" + balanceof ;
+								})
+					})
+				})
+                // Approve for spender
+                
+                $('#approve').click(function()
+                {	
+
+					var address
+					address = document.getElementById("spender").value
+                    var amount
+                    amount = document.getElementById("amount").value
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.approve(address, amount).send(
+							{
+								from: accounts[0]
+							}).then(function(tx)
+									{
+										console("tx", tx);
+									}).catch(function(tx)
+									{
+										console.log(tx);
+									})
+					})
+				})
+                
+                 // Approve for spender
+                
+                 $('#increaseApproval').click(function()
+                {	
+
+					var address
+					address = document.getElementById("spender").value
+                    var amount
+                    amount = document.getElementById("addedamount").value
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.increaseApproval(address, amount).send(
+							{
+								from: accounts[0]
+							}).then(function(tx)
+									{
+										console("tx", tx);
+									}).catch(function(tx)
+									{
+										console.log(tx);
+									})
+					})
+				})
+
+                //Substracted value for spender
+               
+                
+                 $('#decreaseApproval').click(function()
+                {	
+
+					var address
+					address = document.getElementById("spender").value
+                    var amount
+                    amount = document.getElementById("substractamount").value
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+				// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.descreaseApproval(address, amount).send(
+							{
+								from: accounts[0]
+							}).then(function(tx)
+									{
+										console("tx", tx);
+									}).catch(function(tx)
+									{
+										console.log(tx);
+									})
+					})
+				})
+            //Delete Awarder
+           
+            $('#deleteAwarder').click(function()
+                {	
+
+					var address
+					address = document.getElementById("deleteAwarder").value
+                
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.deleteAwarder(address).send(
+							{
+								from: accounts[0]
+							}).then(function(tx)
+									{
+										console("tx", tx);
+									}).catch(function(tx)
+									{
+										console.log(tx);
+									})
+					})
+				})
+
+            //Token Transfer ( From Awarder to account with token)
+            $('#transfer').click(function()
+                {	
+
+					var recipient
+					recipient = document.getElementById("recipient").value
+                    var amount
+                    amount = document.getElementById("amount").value
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+				// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.transfer(recipient, amount).send(
+							{
+								from: accounts[0]
+							}).then(function(tx)
+									{
+										console("tx", tx);
+									}).catch(function(tx)
+									{
+										console.log(tx);
+									})
+					})
+				})
+
+                // Transfer From To
+                $('#transferFrom').click(function()
+                {	
+
+					var from
+					from = document.getElementById("from").value
+                    var to
+                    to = document.getElementById("to").value
+                    var value
+                    value = document.getElementById("value").value
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+				// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.transferFrom(from, to,  value ).send(
+							{
+								from: accounts[0]
+							}).then(function(tx)
+									{
+										console("tx", tx);
+									}).catch(function(tx)
+									{
+										console.log(tx);
+									})
+					})
+				})
+                //Transfer Ownership
+                $('#transferowner').click(function()
+                {	
+
+					var address
+					address = document.getElementById("newowner").value
+                  
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+				// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.transferOwnership(address).send(
+							{
+								from: accounts[0] 
 							}).then(function(tx)
 									{
 										console.log(tx);
@@ -873,7 +1230,34 @@
 									})
 					})
 				})
-              
+                //Revoke Award
+
+                $('#revokeAward').click(function()
+                {	
+
+					var address
+					address = document.getElementById("user").value
+                    var awardid
+					awardid = document.getElementById("awardid").value
+                    var date
+					date = document.getElementById("date").value
+						web3.eth.getAccounts().then(function (accounts) 
+					{
+
+				// accounts[0] transfer 1 * 10**18 coins to accounts[2]
+						return contract.methods.revokeAward(address, awardid, date).send(
+							{
+								from: accounts[0] 
+							}).then(function(tx)
+									{
+										console.log(tx);
+									}).catch(function(tx)
+									{
+										console.log(tx);
+									})
+					})
+				})
+
 
             })
         </script>
