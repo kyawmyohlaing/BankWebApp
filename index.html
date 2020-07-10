@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <meta name="viewport" content="width=device-width", initial-scale=1>
+      
         <link rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <script>
             src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"
@@ -14,124 +15,157 @@
         
         <div class="container-fluid">
             <div class="row">
+
                 <div class="col-lg-6">
                     <button  id='name'>Token Name:</button>
                     <button id='symbol'>Token Symbol:</button>
-                    <button id='decimals'>Token Decimals:</button>
-                    
+                    <button id='decimals'>Token Decimals:</button>    
                 </div>
+
                 <p></p>
+
                 <div class="col-lg-6">
                     <button id='totalSupply'>totalSupply:</button>
+                    
                     <button id='owner'>Owner Address:</button>
                 </div>
+
+                
+
                 <p></p>
                
                 <div class="col-lg-6">
                     <input type="text", id="owneraddress">
-                <button id='ownerbalance'>Owner Balance</button>
+                    <button id='ownerbalance'>Owner Token Balance</button>
                 </div>
+
                 <p></p>
+
                 <div class="col-lg-6">
                     <input type="text", placeholder="Awarder Address", id="awarderaddress">
                     <button id='addAwarder'>Add Awarder</button>
                 </div>
+
                 <p></p>
+
                 <div class="col-lg-6">
                     <input type="text", placeholder="Awarder Address", id="awarderaddress">
                     <button style="background: red;", "id='isAwarder'>Check Awarder-In progress</button>
-                    
                 </div>
+
                 <p></p>
+
                 <div class="col-lg-6">
                     <input type="text", placeholder="Award ID", id="awardid">
-                
                     <button id='addAward'>Define Award</button>
-                
                 </div>
+
                 <p></p>
+
                 <div class="col-lg-6">
                     <input type="text", placeholder="Award ID", id="awardid">
-                
                     <button id='getaward'>Check Award ID Owner Address</button>
-                
                 </div>
+
                 <p></p>
+
                 <div class="col-lg-6">
                     <input type="text", placeholder="Awarder Address", id="deleteAwarder">
-                
                     <button id='deleteAwarder'>Delete Awarder</button>
-                
                 </div>
                 
                 <p></p>
+
                 <div class="col-lg-6">
                     <input type="text", placeholder="New Owner Address", id="newowner">
-                
-                <button id='transferOwnership'>Transfer Owner Ship</button>
+                    <button id='transferOwnership'>Transfer Owner Ship</button>
                 </div>
                 
                 <p></p>
+
                 <div class="col-lg-6">
                     <input type="text", placeholder="Balance Address", id="balanceaddress">
-                    <button id='balanceof'>Balance</button>
+                    <button id='balanceof'>Token Balance</button>
                 </div>
+
                 <p></p>
+
                 <div class="col-lg-6">
                     <input type="text", placeholder="New Owner Address", id="newowner">
-                
                     <button style="background: red;", id='transferowner'>OwnerTransfer-In Progress</button>
                 </div>
+
                 <p></p>
+
                 <div class="col-lg-6">
                     <input type="text", placeholder="Mint Address", id="to">
                     <input type="text", placeholder="Mint Amount", id="amount">
-                
-                <button id='mint'>Mint </button>
+                    <button id='mint'>Mint </button>
+                    <span id="status"></span>
                 </div>
+
                 <p></p>
+                
                 <div class="col-lg-6">
                     <input type="text", placeholder="Receipt Address", id="recipient">
                     <input type="text", placeholder="Transfer Amount", id="amount">
-                    <button id='transfer'>Transfer</button>
+                    <button id='transfer'>Transfer Token(1x5)</button>
                 </div>
+
                 <p></p>
+
                 <div class="col-lg-6">
                     <input type="text", placeholder="Owner Address", id="owner">
                     <input type="text", placeholder="Spender Address", id="spender">
                     <button style="background: red;", id='allowance'>Allowance-In Progress</button>
                 </div>
+
+                <p></p>
+
                 <div class="col-lg-6">
                     <input type="text", placeholder="Spender Address", id="spender">
                     <input type="text", placeholder="Given Amount", id="amount">
                     <button style="background: red;", id='approve'>Approve- In Progress</button>
                 </div>
+
                 <p></p>
+
                 <div class="col-lg-6">
                     <input type="text", placeholder="Spender Address", id="spender">
                     <input type="text", placeholder="Added Amount", id="addedamount">
                     <button style="background: red;", id='increaseApproval'>Increased Approve- In Progress</button>
                 </div>
+
                 <p></p>
+
                 <div class="col-lg-6">
                     <input type="text", placeholder="Spender Address", id="spender">
                     <input type="text", placeholder="subtractedValue Amount", id="substractamount">
                     <button style="background: red;", id='descreaseApproval'>Decreased Approve- In Progress</button>
                 </div>
+
                 <p></p>
+
                 <div class="col-lg-6">
                     <input type="text", placeholder="Sender Address", id="from">
                     <input type="text", placeholder="Receipt Address", id="to">
                     <input type="text", placeholder="Transfer Amount", id="value">
                     <button style="background: red;", id='transferFrom'>Transfer From-In Progress</button>
                 </div>
+
                 <p></p>
+
                 <div class="col-lg-6">
                     <input type="text", placeholder="User Address", id="user">
                     <input type="text", placeholder="Award ID", id="awardid">
                     <input type="text", placeholder="Date", id="date">
                     <button id='revokeAward'>Revoke Award</button>
                 </div>
+
+                <div id="accountsBalanceTable">
+
+                </div>
+
             </div>
         </div>
 
@@ -786,6 +820,7 @@
 	}
 ]
                 var address = "0x86Ff975CeFA58a0f2679Ee84073A8d07580F92F4";
+               // var web3 = new Web3(new Web3.providers.HttpProvider("http://165.22.32.19:8000"));
                 web3 = new Web3(web3.currentProvider);
                 contract = new web3.eth.Contract(abi, address);
 
@@ -814,6 +849,7 @@
                     //$('#name').html(name);
                     document.getElementById("owner").innerHTML = "Owner Address:"  + owner ;
                 })
+               
 
                 //Get Total Supply
 				$('#totalSupply').click(function()
@@ -829,7 +865,7 @@
 							}).then(function(totalSupply)
 								{
 									//$('#owner').html(owner);
-									document.getElementById("totalSupply").innerHTML = "Total Supply:"  + totalSupply ;
+									document.getElementById("totalSupply").innerHTML = "Total Supply:"  + totalSupply + "POINT" ;
 								})
 					})
 				})
@@ -866,7 +902,7 @@
 							}).then(function(ownerbalance)
 								{
 									//$('#coinbalance').html(coinbalance);
-									document.getElementById("ownerbalance").innerHTML = "Owner Account Balance:" + ownerbalance + "Eth";
+									document.getElementById("ownerbalance").innerHTML = "Owner Account Token Balance:" + ownerbalance + "Point";
 								})
 					})
 				})
@@ -885,16 +921,17 @@
 						// accounts[0] transfer 1 * 10**18 coins to accounts[2]
 						return contract.methods.allowance(owneraddress, spenderaddress).send(
 							{
-								from: accounts[0]
-							}).then(function(tx)
-                                {
-                                    console.log(tx);
-                                }).catch(function(tx)
-                                {
-                                    console.log(tx);
-                                })
-                                })
-				    })
+                                    from: accounts[0]
+                            }).then(function(tx)
+                                    {
+                                        console.log(tx);
+                                        
+                                    }).catch(function(tx)
+                                    {
+                                        console.log(tx);
+                                    })
+                    })
+				})
 
 
                 //Transfer Owner
@@ -993,7 +1030,7 @@
 
 					var address
 					address = document.getElementById("awarderaddress").value
-                    var awarders
+                    var text = awarders ? "True" : "False"
 						web3.eth.getAccounts().then(function (accounts) 
 					{
 
@@ -1001,14 +1038,15 @@
 						return contract.methods.isAwarder(address).call(
 							{
 								from: accounts[0]
-							}).then(function(awarders)
+							}).then(function(text)
 								{
 									//$('#coinbalance').html(coinbalance);
-									document.getElementById("isAwarder").innerHTML = "Is Awarder?:" + awarders ;
+                                    var text = awarders ? "True" : "False";
+									document.getElementById("isAwarder").innerHTML = text ;
 								})
 					})
 				})
-                //Mint
+                //Mint ( Only  owner address can mint token)
                 $('#mint').click(function()
                 {	
 
@@ -1026,6 +1064,7 @@
 							}).then(function(tx)
 									{
 										console("tx", tx);
+                                        document.getElementById("status").innerText = "Waiting for transaction to be mined...";
 									}).catch(function(tx)
 									{
 										console.log(tx);
@@ -1049,7 +1088,7 @@
 							}).then(function(balanceof)
 								{
 									//$('#coinbalance').html(coinbalance);
-									document.getElementById("balanceof").innerHTML = "Balance:" + balanceof ;
+									document.getElementById("balanceof").innerHTML = "Token Balance:" + balanceof + "POINT" ;
 								})
 					})
 				})
@@ -1156,7 +1195,7 @@
 					})
 				})
 
-            //Token Transfer ( From Awarder to account with token)
+            //Token Transfer (token transfer value must equal to mint value )
             $('#transfer').click(function()
                 {	
 
@@ -1173,7 +1212,7 @@
 								from: accounts[0]
 							}).then(function(tx)
 									{
-										console("tx", tx);
+										console.log("tx", tx);
 									}).catch(function(tx)
 									{
 										console.log(tx);
@@ -1258,6 +1297,7 @@
 					})
 				})
 
+                
 
             })
         </script>
