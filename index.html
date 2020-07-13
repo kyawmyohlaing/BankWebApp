@@ -49,8 +49,8 @@
                 <p></p>
 
                 <div class="col-lg-6">
-                    <input type="text", placeholder="Awarder Address", id="awarderaddress">
-                    <button style="background: red;", "id='isAwarder'>Check Awarder-In progress</button>
+                    <input type="text", placeholder="Awarder Address", id="address">
+                    <button style="background: red;", id='isAwarder'>Check Awarder-In progress</button>
                 </div>
 
                 <p></p>
@@ -1029,8 +1029,8 @@
                 {	
 
 					var address
-					address = document.getElementById("awarderaddress").value
-                    var text = awarders ? "True" : "False"
+					address = document.getElementById("address").value
+                    var awarders = address ? "True" : "False"
 						web3.eth.getAccounts().then(function (accounts) 
 					{
 
@@ -1038,11 +1038,11 @@
 						return contract.methods.isAwarder(address).call(
 							{
 								from: accounts[0]
-							}).then(function(text)
+							}).then(function(address)
 								{
 									//$('#coinbalance').html(coinbalance);
-                                    var text = awarders ? "True" : "False";
-									document.getElementById("isAwarder").innerHTML = text ;
+                                    var awarders = address ? "True" : "False";
+									document.getElementById("isAwarder").innerHTML = awarders ;
 								})
 					})
 				})
